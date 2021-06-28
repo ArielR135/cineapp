@@ -8,7 +8,7 @@
 
 	<context:component-scan base-package="ariel.app.controller" />
 	<mvc:annotation-driven />
-	
+
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
@@ -18,7 +18,10 @@
 			<value>.jsp</value>
 		</property>
 	</bean>
-	
+
 	<mvc:resources mapping="/resources/**" location="/resources/" />
-	
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
+
 </beans>
