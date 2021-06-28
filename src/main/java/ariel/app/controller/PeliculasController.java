@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ariel.app.model.Pelicula;
 import ariel.app.service.IPeliculasService;
@@ -39,7 +40,7 @@ public class PeliculasController {
 	}
 	
 	@PostMapping("/save")
-	public String guardar(Pelicula pelicula, BindingResult result/*, RedirectAttributes attributes*/) {
+	public String guardar(Pelicula pelicula, BindingResult result, RedirectAttributes attributes) {
 		
 		/*if (result.hasErrors()) {
 			System.out.println("Existieron errores");
@@ -50,18 +51,17 @@ public class PeliculasController {
 			System.out.println(error.getDefaultMessage());
 		}
 		
-		System.out.println("Recibiendo objeto pelicula: " +pelicula);
-		
+		System.out.println("Recibiendo objeto pelicula: " +pelicula);		
 		System.out.println("Elementos en la lista antes de la insersion: " + servicePeliculas.buscarTodas().size());
 		
 		servicePeliculas.insertar(pelicula);
 		
 		System.out.println("Elementos en la lista despues de la insersion: " + servicePeliculas.buscarTodas().size());
 		
-//		attributes.addFlashAttribute("mensaje", "El registro fue guardado");
+		attributes.addFlashAttribute("mensaje", "El registro fue guardado");
 		
-		return "peliculas/formPelicula";
-//		return "redirect:/peliculas/index";
+//		return "peliculas/formPelicula";
+		return "redirect:/peliculas/index";
 	}
 	
 	@InitBinder
