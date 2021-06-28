@@ -25,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ariel.app.model.Pelicula;
 import ariel.app.service.IPeliculasService;
+import ariel.app.util.Utileria;
 
 @Controller
 @RequestMapping("/peliculas")
@@ -59,7 +60,7 @@ public class PeliculasController {
 		}
 
 		if (!multiPart.isEmpty()) {
-			String nombreImagen = guardarImagen(multiPart, request);
+			String nombreImagen = Utileria.guardarImagen(multiPart, request);
 			pelicula.setImagen(nombreImagen);
 		}
 
@@ -74,24 +75,6 @@ public class PeliculasController {
 
 		// return "peliculas/formPelicula";
 		return "redirect:/peliculas/index";
-	}
-
-	private String guardarImagen(MultipartFile multiPart, HttpServletRequest request) {
-		// Obtenemos el nombre original del archivo
-		String nombreOriginal = multiPart.getOriginalFilename();
-		// Obtenemos la ruta ABSOLUTA del directorio images
-		// apache-tomcat/webapps/cineapp/resources/images/
-		String rutaFinal = request.getServletContext().getRealPath("/resources/images/");
-		try {
-			// Formamos el nombre del archivo para guardarlo en el disco duro
-			File imageFile = new File(rutaFinal + nombreOriginal);
-			// Aqui se guarda fisicamente el archivo en el disco duro
-			multiPart.transferTo(imageFile);
-			return nombreOriginal;
-		} catch (IOException e) {
-			System.out.println("Error " + e.getMessage());
-			return null;
-		}
 	}
 
 	@InitBinder
