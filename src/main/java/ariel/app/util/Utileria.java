@@ -42,12 +42,14 @@ public class Utileria {
 	public static String guardarImagen(MultipartFile multiPart, HttpServletRequest request) {
 		// Obtenemos el nombre original del archivo
 		String nombreOriginal = multiPart.getOriginalFilename();
+		nombreOriginal = nombreOriginal.replace(" ", "-");
 		// Obtenemos la ruta ABSOLUTA del directorio images
 		// apache-tomcat/webapps/cineapp/resources/images/
 		String rutaFinal = request.getServletContext().getRealPath("/resources/images/");
 		try {
 			// Formamos el nombre del archivo para guardarlo en el disco duro
 			File imageFile = new File(rutaFinal + nombreOriginal);
+			System.out.println("Archivo guardado en: "+imageFile.getAbsolutePath());
 			// Aqui se guarda fisicamente el archivo en el disco duro
 			multiPart.transferTo(imageFile);
 			return nombreOriginal;
