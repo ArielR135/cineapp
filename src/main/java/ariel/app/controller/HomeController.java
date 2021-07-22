@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ariel.app.model.Pelicula;
+import ariel.app.service.IBannersService;
 import ariel.app.service.IPeliculasService;
 import ariel.app.util.Utileria;
 
@@ -20,6 +21,9 @@ public class HomeController {
 	
 	@Autowired
 	private IPeliculasService servicePeliculas;
+	
+	@Autowired
+	private IBannersService serviceBanners;
 
 	private SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
@@ -40,6 +44,9 @@ public class HomeController {
 		model.addAttribute("peliculas", peliculas);
 		
 		System.out.println("Buscando todas las peliculas en exhibicion para la fecha: " + fecha);
+		
+		model.addAttribute("banners", serviceBanners.buscarTodos());
+		
 		return "home";
 	}
 
@@ -55,6 +62,8 @@ public class HomeController {
 		model.addAttribute("fechas", listaFechas);
 		model.addAttribute("fechaBusqueda", dateFormat.format(new Date()));
 		model.addAttribute("peliculas", peliculas);
+		
+		model.addAttribute("banners", serviceBanners.buscarTodos());
 
 		return "home";
 	}
